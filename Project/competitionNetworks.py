@@ -4,6 +4,7 @@ Dynamic Competition Networks Analysis
 
 By: Katrina Ronquillo, Kelvin Tran, Jessica Tiberio
 """
+from inspect import getcallargs
 import matplotlib.pyplot as plt
 from graphGeneration import *
 from graphAnalysis import * 
@@ -15,9 +16,7 @@ if __name__ == "__main__":
     # Week One
     weekOne = initWeekOneGraph(houseguests)
     drawGraph("Week One", weekOne)
-    #displayData(weekOne)
-
-    print(getCloseness(weekOne, "Joey"))
+    displayData(weekOne)
 
     # Show Graphs
     plt.show()

@@ -5,6 +5,7 @@ Graph Analysis Module
 
 This module does analysis on dynamic competition networks of Big Brother 16 
 """ 
+from matplotlib.pyplot import close
 import networkx as nx
 import pandas as pd
 from typing import Set, List
@@ -35,7 +36,7 @@ def getCloseness(graph: nx.DiGraph, u: str) -> float:
     """
     Returns the closeness centrality of the given node, u, in the given graph
     """
-    return nx.closeness_centrality(graph, u, distance="weight")
+    return nx.closeness_centrality(graph.reverse(), u, distance="weight")
 
 def getEdgeDensity(graph: nx.DiGraph, nodes: List[str]) -> float:
     """
@@ -52,7 +53,7 @@ def isNearIndependent(graph: nx.DiGraph, epsilon: float) -> bool:
     """
     return getEdgeDensity(graph, graph.nodes) <= epsilon
 
-def displayData(graph: nx.DiGraph) -> None: 
+def displayData(graph: nx.DiGraph) -> pd.DataFrame: 
     """
     Displays data for the given dynamic competiton network
 
@@ -62,5 +63,20 @@ def displayData(graph: nx.DiGraph) -> None:
     CON - CON Score
     B - Betweeness Centrality 
     """
-    pass
+    name, inDegree, outDegree, closeness, con = [], [], [], [], [] 
+    # Iterate through all nodes and calculate metrics 
+    for node in graph.nodes:
+        name.append(node)
+        inDegree.append(graph.in_degree(node))
+        outDegree.append(graph.out_degree(node))
+        closeness.append(getCloseness(graph, node))
+        con.append(getConScore(graph, node))
+    
+    df = pd.DataFrame({"name": name, 
+                       "ID": inDegree, 
+                        "OD": outDegree,
+                        "C": closeness, 
+                        "CON": con})
+    print(df)
+    return(df)
 

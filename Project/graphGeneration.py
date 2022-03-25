@@ -48,7 +48,9 @@ def getDataFrame(houseguests: Dict[str, "Houseguest"]) -> pd.DataFrame:
             numCompetition = houseguest.getTotalCompetition()[competitor]
             weightColumn.append(1/numCompetition)
 
-    return pd.DataFrame({"from": fromColumn, "to": toColumn, "weight": weightColumn})
+    return pd.DataFrame({"from": fromColumn, 
+                        "to": toColumn, 
+                        "weight": weightColumn})
 
 def initWeekOneGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     # Head of Household
@@ -76,7 +78,6 @@ def initWeekOneGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     
     # Graph
     dataframe = getDataFrame(houseguests)
-    print(dataframe)
     weekOneGraph = nx.from_pandas_edgelist(dataframe, source="from",
         target="to", edge_attr="weight", create_using=nx.DiGraph)
 

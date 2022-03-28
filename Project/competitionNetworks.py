@@ -18,6 +18,41 @@ if __name__ == "__main__":
     drawGraph("Week One", weekOne)
     displayData(weekOne)
 
+    # Week Two
+    weekTwo = initWeekTwoGraph(houseguests)
+    drawGraph("Week Two", weekTwo)
+    displayData(weekTwo)
+
+    # Week Three
+    weekThree = initWeekThreeGraph(houseguests)
+    drawGraph("Week Three", weekThree)
+    displayData(weekThree)
+
+    # Week Four
+    weekFour = initWeekFourGraph(houseguests)
+    drawGraph("Week Four", weekFour)
+    displayData(weekFour)
+    
+    # Week Five
+    weekFive = initWeekFiveGraph(houseguests)
+    drawGraph("Week Five", weekFive)
+    displayData(weekFive)
+    
+    # Week Six
+    weekSix = initWeekSixGraph(houseguests)
+    drawGraph("Week Six", weekSix)
+    displayData(weekSix)
+    
+    # # Week Seven
+    # weekSeven = initWeekSevenGraph(houseguests)
+    # drawGraph("Week Seven", weekSeven)
+    # displayData(weekSeven)
+    
+    # # Week Eight
+    # weekEight = initWeekEightGraph(houseguests)
+    # drawGraph("Week Eight", weekEight)
+    # displayData(weekEight)
+    
     # Show Graphs
     plt.show()
     

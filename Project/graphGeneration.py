@@ -100,11 +100,15 @@ def initWeekTwoGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     zach = houseguests["Zach"]
     zach.addNomination(devin)
 
+    # Eliminated houseguests
+    evicted = [houseguests["Joey"]]
+
     # Votes
     for houseguest in houseguests.values():
         isHOH = houseguest == devin
         isNominated = houseguest == paola or houseguest == zach
-        if (not isHOH) and (not isNominated):
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
             paola.addVote(houseguest)
     
     # Graph
@@ -131,11 +135,15 @@ def initWeekThreeGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     devin = houseguests["Devin"]
     devin.addNomination(derrick)
 
+    # Eliminated houseguests
+    evicted = [houseguests["Joey"], houseguests["Paola"]]
+
     # Votes
     for houseguest in houseguests.values():
         isHOH = houseguest == derrick
         isNominated = houseguest == caleb or houseguest == devin
-        if (not isHOH) and (not isNominated):
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
             devin.addVote(houseguest)
 
     # Graph
@@ -162,11 +170,15 @@ def initWeekFourGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     donny = houseguests["Donny"]
     donny.addNomination(cody)
 
+    # Eliminated houseguests
+    evicted = [houseguests["Joey"], houseguests["Paola"], houseguests["Devin"]]
+
     # Votes
     for houseguest in houseguests.values():
         isHOH = houseguest == cody
         isNominated = houseguest == donny or houseguest == brittany
-        if (not isHOH) and (not isNominated):
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
             brittany.addVote(houseguest)
 
     # Graph
@@ -193,11 +205,15 @@ def initWeekFiveGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     amber = houseguests["Amber"]
     amber.addNomination(frankie)
 
+    # Eliminated houseguests
+    evicted = [houseguests["Joey"], houseguests["Paola"], houseguests["Devin"], houseguests["Brittany"]]
+
     # Votes
     for houseguest in houseguests.values():
         isHOH = houseguest == frankie
         isNominated = houseguest == jocasta or houseguest == amber
-        if (not isHOH) and (not isNominated):
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
             amber.addVote(houseguest)
 
     # Graph
@@ -223,11 +239,14 @@ def initWeekSixGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     # Power of Veto (+ Nomination after POV)
     # Not used.
 
+    evicted = [houseguests["Joey"], houseguests["Paola"], houseguests["Devin"], houseguests["Brittany"], houseguests["Amber"]]
+
     # Votes
     for houseguest in houseguests.values():
         isHOH = houseguest == nicole
         isNominated = houseguest == jocasta or houseguest == zach
-        if (not isHOH) and (not isNominated):
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
             jocasta.addVote(houseguest)
 
     # Graph

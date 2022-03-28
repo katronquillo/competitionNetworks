@@ -257,10 +257,68 @@ def initWeekSixGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     return weekSixGraph
 
 def initWeekSevenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
-    pass
+    # Head of Household
+    caleb = houseguests["Caleb"]
+
+    # Nominations
+    hayden, donny = houseguests["Hayden"], houseguests["Donny"]
+    hayden.addNomination(caleb)
+    donny.addNomination(caleb)
+
+    # Power of Veto (+ Nomination after POV)
+    nicole = houseguests["Nicole"]
+    nicole.addNomination(caleb)
+
+    evicted = [houseguests["Joey"], houseguests["Paola"], houseguests["Devin"], houseguests["Brittany"], houseguests["Amber"], houseguests["Jocasta"]]
+
+    # Votes
+    for houseguest in houseguests.values():
+        isHOH = houseguest == nicole
+        isNominated = houseguest == hayden or houseguest == nicole
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
+            hayden.addVote(houseguest)
+
+    # Graph
+    dataframe = getDataFrame(houseguests)
+    weekSevenGraph = nx.from_pandas_edgelist(dataframe, source="from",
+        target="to", edge_attr="weight", create_using=nx.DiGraph)
+    
+    return weekSevenGraph
 
 def initWeekEightGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
-    pass
+    # Head of Household
+    nicole, christine = houseguests["Nicole"], houseguests["Christine"]
+
+    # Nominations
+    caleb, frankie = houseguests["Caleb"], houseguests["Frankie"]
+    caleb.addNomination(nicole)
+    frankie.addNomination(nicole)
+
+    donny, zach = houseguests["Donny"], houseguests["Zach"]
+    donny.addNomination(christine)
+    zach.addNomination(christine)
+
+    # Power of Veto (+ Nomination after POV)
+    nicole = houseguests["Nicole"]
+    nicole.addNomination(christine)
+
+    evicted = [houseguests["Joey"], houseguests["Paola"], houseguests["Devin"], houseguests["Brittany"], houseguests["Amber"], houseguests["Jocasta"], houseguests["Hayden"]]
+
+    # Votes
+    for houseguest in houseguests.values():
+        isHOH = houseguest == christine
+        isNominated = houseguest == nicole or houseguest == donny
+        isEvicted = houseguest in evicted
+        if (not isHOH) and (not isNominated) and (not isEvicted):
+            nicole.addVote(houseguest)
+
+    # Graph
+    dataframe = getDataFrame(houseguests)
+    weekEightGraph = nx.from_pandas_edgelist(dataframe, source="from",
+        target="to", edge_attr="weight", create_using=nx.DiGraph)
+    
+    return weekEightGraph
 
 def initWeekNineGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     pass

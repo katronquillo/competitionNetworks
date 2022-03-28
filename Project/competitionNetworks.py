@@ -44,14 +44,14 @@ if __name__ == "__main__":
     displayData(weekSix)
     
     # # Week Seven
-    # weekSeven = initWeekSevenGraph(houseguests)
-    # drawGraph("Week Seven", weekSeven)
-    # displayData(weekSeven)
+    weekSeven = initWeekSevenGraph(houseguests)
+    drawGraph("Week Seven", weekSeven)
+    displayData(weekSeven)
     
     # # Week Eight
-    # weekEight = initWeekEightGraph(houseguests)
-    # drawGraph("Week Eight", weekEight)
-    # displayData(weekEight)
+    weekEight = initWeekEightGraph(houseguests)
+    drawGraph("Week Eight", weekEight)
+    displayData(weekEight)
     
     # Show Graphs
     plt.show()

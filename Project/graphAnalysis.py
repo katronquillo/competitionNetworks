@@ -5,7 +5,6 @@ Graph Analysis Module
 
 This module does analysis on dynamic competition networks of Big Brother 16 
 """ 
-from matplotlib.pyplot import close
 import networkx as nx
 import pandas as pd
 from typing import Set, List
@@ -41,8 +40,11 @@ def getCloseness(graph: nx.DiGraph, u: str) -> float:
 def getEdgeDensity(graph: nx.DiGraph, nodes: List[str]) -> float:
     """
     Returns the Edge Density of the subgraph of graph, induced by the given
-    list of nodes
+    list of nodes. If nodes is empty, then returns edge density of whole graph.
     """
+    if (len(nodes) == 0):
+        return nx.density(graph)
+        
     subgraph = graph.subgraph(nodes)
     return nx.density(subgraph)
 
@@ -64,6 +66,7 @@ def displayData(graph: nx.DiGraph) -> pd.DataFrame:
     B - Betweeness Centrality 
     """
     name, inDegree, outDegree, closeness, con = [], [], [], [], [] 
+
     # Iterate through all nodes and calculate metrics 
     for node in graph.nodes:
         name.append(node)
@@ -77,6 +80,6 @@ def displayData(graph: nx.DiGraph) -> pd.DataFrame:
                         "OD": outDegree,
                         "C": closeness, 
                         "CON": con})
+    df.sort_values(by=["ID", "C", "OD"], ascending=False)
     print(df)
     return(df)
-

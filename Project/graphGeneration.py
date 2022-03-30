@@ -7,7 +7,6 @@ This module generates the dynamic competition networks for Big Brother 16
 """
 import networkx as nx
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 from typing import List, Dict
 from classes.houseguest import *
@@ -51,6 +50,13 @@ def getDataFrame(houseguests: Dict[str, "Houseguest"]) -> pd.DataFrame:
     return pd.DataFrame({"from": fromColumn, 
                         "to": toColumn, 
                         "weight": weightColumn})
+
+def writeEdgeList(graph: nx.DiGraph, filename: str) -> None:
+    """
+    Write the Edgelist of the given graph to a a file with the given filename
+    """
+    weekOneFile = open(filename, "wb")
+    nx.write_weighted_edgelist(graph, weekOneFile)
 
 def initWeekOneGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
     # Head of Household
@@ -356,7 +362,6 @@ def initWeekNineGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
     # Graph
     dataframe = getDataFrame(houseguests)
-    print(dataframe)
     weekNineGraph = nx.from_pandas_edgelist(dataframe, source="from",
         target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -384,7 +389,6 @@ def initWeekTenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
         # Graph
         dataframe = getDataFrame(houseguests)
-        print(dataframe)
         weekTenGraph = nx.from_pandas_edgelist(dataframe, source="from",
             target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -416,7 +420,6 @@ def initWeekElevenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
         # Graph
         dataframe = getDataFrame(houseguests)
-        print(dataframe)
         weekElevenGraph = nx.from_pandas_edgelist(dataframe, source="from",
             target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -444,7 +447,6 @@ def initWeekTwelveGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
         # Graph
         dataframe = getDataFrame(houseguests)
-        print(dataframe)
         weekTwelveGraph = nx.from_pandas_edgelist(dataframe, source="from",
             target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -461,7 +463,6 @@ def initWeekThirteenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
         # Graph
         dataframe = getDataFrame(houseguests)
-        print(dataframe)
         weekThirteenGraph = nx.from_pandas_edgelist(dataframe, source="from",
             target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -489,7 +490,6 @@ def initWeekFourteenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
     # Graph
     dataframe = getDataFrame(houseguests)
-    print(dataframe)
     weekFourteenGraph = nx.from_pandas_edgelist(dataframe, source="from",
         target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -517,7 +517,6 @@ def initWeekFifteenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
     # Graph
     dataframe = getDataFrame(houseguests)
-    print(dataframe)
     weekFifteenGraph = nx.from_pandas_edgelist(dataframe, source="from",
         target="to", edge_attr="weight", create_using=nx.DiGraph)
 
@@ -545,7 +544,6 @@ def initWeekSixteenGraph(houseguests: Dict[str, "Houseguest"]) -> nx.DiGraph:
 
     # Graph
     dataframe = getDataFrame(houseguests)
-    print(dataframe)
     weekSixteenGraph = nx.from_pandas_edgelist(dataframe, source="from",
         target="to", edge_attr="weight", create_using=nx.DiGraph)
 

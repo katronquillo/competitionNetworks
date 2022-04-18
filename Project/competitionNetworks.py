@@ -105,14 +105,16 @@ if __name__ == "__main__":
             midGraph, finalGraph = graphs[currWeek - 1][0], graphs[currWeek - 1][1]
 
             if currWeek > 0:
-                print("\nMost Likely Leaders to Less Likely Leaders...")
+                print("\nTable Sorted From Most Likely Leaders to Less Likely Leaders...")
                 print(f"\nMid Week {currWeek} Graph (Before Votes)")
                 displayData(midGraph)
-                drawGraph(f"Mid Week {currWeek}", midGraph)
-                plt.show()
 
                 print(f"\nFinal Week {currWeek} Graph (After Votes)")
                 displayData(finalGraph)
+
+                drawGraph(f"Mid Week {currWeek}", midGraph)
+                plt.show()
+
                 drawGraph(f"Final Week {currWeek}", finalGraph)
                 plt.show()
             else:

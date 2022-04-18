@@ -56,8 +56,10 @@ if __name__ == "__main__":
         for week in range(len(graphs)):
             if not os.path.exists("edgelists"):
                 os.makedirs("edgelists")
-            writeEdgeList(graphs[week], \
-                f"./edgelists/w{week + 1}_edgelist.txt")
+            writeEdgeList(graphs[week][0], \
+                f"./edgelists/mid_w{week + 1}_edgelist.txt")
+            writeEdgeList(graphs[week][1], \
+                f"./edgelists/final_w{week + 1}_edgelist.txt")
         print("=== All Edgelists saved to dir ./edgelists ===\n")
     
     # Analyze Alliances (Optional):
@@ -70,7 +72,7 @@ if __name__ == "__main__":
         currWeek = int(currWeek)
 
         print(f"Total Week {currWeek} Graph Edge Density: " +\
-            f"{getEdgeDensity(graphs[currWeek - 1], [])}")
+            f"{getEdgeDensity(graphs[currWeek - 1][1], [])}\n")
 
         while (analyzeAlliances):
             # Get Sublist of Houseguests to Analyze + Do ED analysis
@@ -78,8 +80,12 @@ if __name__ == "__main__":
                         + "Separate names by one space.\n")
             names = names.split(" ")
             alliance = [name.title() for name in names]
-            print(f"Alliance Week {currWeek} Graph Edge Density: " +\
-                f"{getEdgeDensity(graphs[currWeek - 1], alliance)}")
+
+            print(f"\nAlliance Week {currWeek} Sub-Graph Edge Density: " +\
+                f"{getEdgeDensity(graphs[currWeek - 1][1], alliance)}\n")
+            
+            print(f"Most Likely Alliance Leader on Week {currWeek} based on CON Score: " +\
+                f"{getMaxConScore(graphs[currWeek - 1][1], alliance)}\n")
 
             # Loop Condition 
             analyzeAlliances = input("Do you want to analyze more alliances? (Y/N): ").upper()
@@ -96,10 +102,18 @@ if __name__ == "__main__":
             while (not currWeek.isdigit() and int(currWeek) not in range(17)):
                 currWeek = input("\nEnter week number (1-16) or 0 to exit: ")
             currWeek = int(currWeek)
+            midGraph, finalGraph = graphs[currWeek - 1][0], graphs[currWeek - 1][1]
 
             if currWeek > 0:
-                displayData(graphs[currWeek - 1])
-                drawGraph(f"Week {currWeek}", graphs[currWeek - 1])
+                print("\nMost Likely Leaders to Less Likely Leaders...")
+                print(f"\nMid Week {currWeek} Graph (Before Votes)")
+                displayData(midGraph)
+                drawGraph(f"Mid Week {currWeek}", midGraph)
+                plt.show()
+
+                print(f"\nFinal Week {currWeek} Graph (After Votes)")
+                displayData(finalGraph)
+                drawGraph(f"Final Week {currWeek}", finalGraph)
                 plt.show()
             else:
                 break

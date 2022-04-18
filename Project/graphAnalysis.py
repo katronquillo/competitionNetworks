@@ -7,6 +7,7 @@ This module does analysis on dynamic competition networks of Big Brother 16
 """ 
 import networkx as nx
 import pandas as pd
+import numpy as np
 from typing import Set, List
 
 def getCommonOutNeighbours(graph: nx.DiGraph, u: str, v: str) -> Set[str]:
@@ -30,6 +31,17 @@ def getConScore(graph: nx.DiGraph, u: str) -> int:
             conScore += len(getCommonOutNeighbours(graph, u, v))
 
     return conScore
+
+def getMaxConScore(graph: nx.DiGraph, nodes: List[str]) -> str:
+    """
+    Return the name of the node with the highest CON score, in the subgraph of
+    the given graph, induced by the given list of nodes
+    """
+    if (len(nodes) == 0):
+        return None
+
+    conScores = [getConScore(graph, node) for node in nodes]
+    return nodes[np.argmax(conScores)]
 
 def getCloseness(graph: nx.DiGraph, u: str) -> float:
     """
@@ -80,6 +92,7 @@ def displayData(graph: nx.DiGraph) -> pd.DataFrame:
                         "OD": outDegree,
                         "C": closeness, 
                         "CON": con})
-    df.sort_values(by=["ID", "C", "OD"], ascending=False)
+    df.sort_values(by=["ID", "OD", "C", "CON"], \
+        ascending=[True, False, False, False], inplace=True)
     print(df)
     return(df)
